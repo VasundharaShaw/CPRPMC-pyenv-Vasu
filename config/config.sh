@@ -1,33 +1,23 @@
 #!/bin/bash
+###############################################################################
+# config.sh — Central configuration for the CPRPMC pipeline
+###############################################################################
 
-# Base directories
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DATA_DIR="$PROJECT_ROOT/data"
 
-# Data subdirectories
-REPOS_DIR="$DATA_DIR/repositories"
-COMP_DIR="$DATA_DIR/comparisons"
-LOG_DIR="$DATA_DIR/logs"
-DB_DIR="$DATA_DIR/db"
-
-# Database file
+INPUT_DIR="$PROJECT_ROOT/input"
+OUTPUT_DIR="$PROJECT_ROOT/output"
+REPOS_DIR="$OUTPUT_DIR/cloned_repos"
+COMP_DIR="$OUTPUT_DIR/comparisons"
+LOG_DIR="$OUTPUT_DIR/logs"
+DB_DIR="$PROJECT_ROOT/data"
 DB_FILE="$DB_DIR/db.sqlite"
+TARGET_COUNT="${TARGET_COUNT:-10}"
 
-# Create all directories
 initialize_directories() {
-    mkdir -p "$REPOS_DIR"
-    mkdir -p "$COMP_DIR"
-    mkdir -p "$LOG_DIR" 
-    mkdir -p "$DB_DIR"
-    
-    log "[INIT] Initialized directory structure in $DATA_DIR"
+    mkdir -p "$INPUT_DIR"
+    mkdir -p "$REPOS_DIR" "$COMP_DIR" "$LOG_DIR"
+    log "[INIT] Initialized directory structure"
 }
 
-# Export for use in other scripts
-export PROJECT_ROOT
-export DATA_DIR
-export REPOS_DIR
-export COMP_DIR
-export LOG_DIR
-export DB_DIR
-export DB_FILE
+export PROJECT_ROOT INPUT_DIR OUTPUT_DIR REPOS_DIR COMP_DIR LOG_DIR DB_DIR DB_FILE TARGET_COUNT
